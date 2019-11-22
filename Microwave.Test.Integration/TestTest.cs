@@ -15,6 +15,8 @@ namespace Microwave.Test.Integration
         public void Setup()
         {
             //uut = new Door();
+
+            //
         }
 
         [Test]

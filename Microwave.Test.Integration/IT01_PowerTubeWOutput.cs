@@ -29,42 +29,36 @@ namespace Microwave.Test.Integration
         public void TurnOn20Output20Test()
         {
             string console;
-            using (StringWriter stringWriter = new StringWriter())
-            {
-                Console.SetOut(stringWriter);
-                powerTube.TurnOn(20);
-                console = stringWriter.ToString();
-            }
+            StringWriter stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+            powerTube.TurnOn(20);
+            console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo("PowerTube works with 20 %\r\n"));
         }
         [Test]
         public void TurnOffOutputNothingTest()
         {
             string console;
-            using (StringWriter stringWriter = new StringWriter())
-            {
-                powerTube.TurnOff();
-                console = stringWriter.ToString();
-            }
+            StringWriter stringWriter = new StringWriter();
+            powerTube.TurnOff();
+            console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo(""));
         }
         [Test]
         public void TurnOn20TurnOffOutput20ThenTurnedOffTest()
         {
             string console;
-            using (StringWriter stringWriter = new StringWriter())
-            {
-                Console.SetOut(stringWriter);
-                powerTube.TurnOn(20);
-                powerTube.TurnOff();
-                console = stringWriter.ToString();
-            }
+            StringWriter stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+            powerTube.TurnOn(20);
+            powerTube.TurnOff();
+            console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo("PowerTube works with 20 %\r\nPowerTube turned off\r\n"));
         }
 
 
 
-        //TODO: Denne og de to næste tests melder tilbage uanset input, at testen er gået godt... (husk at bruge substitude til disse)
+        //TODO: Denne og de to næste tests melder tilbage uanset input, at testen er gået godt... (husk at bruge substitute til disse)
         [Test]
         public void TurnOn30Output30Test()
         {

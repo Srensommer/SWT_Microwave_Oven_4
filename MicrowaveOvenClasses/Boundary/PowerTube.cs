@@ -13,7 +13,7 @@ namespace MicrowaveOvenClasses.Boundary
         {
             myOutput = output;
         }
-
+        //TODO: display viser power i W, her er det i %.
         public void TurnOn(int power)
         {
             if (power < 1 || 100 < power)

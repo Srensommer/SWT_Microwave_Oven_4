@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT3_LightWOutput
+    public class IT06_CookControllerWTimer
     {
 
         [SetUp]

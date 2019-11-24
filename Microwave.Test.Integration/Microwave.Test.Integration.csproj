@@ -60,19 +60,29 @@
     <Compile Include="IT12.cs" />
     <Compile Include="IT11.cs" />
     <Compile Include="IT10.cs" />
-    <Compile Include="IT9.cs" />
-    <Compile Include="IT8.cs" />
-    <Compile Include="IT7.cs" />
-    <Compile Include="IT6_CookControllerWTimer.cs" />
-    <Compile Include="IT5_CookControllerWUI.cs" />
-    <Compile Include="IT4_CookControllerWPowerTube.cs" />
-    <Compile Include="IT3_LightWOutput.cs" />
-    <Compile Include="IT2_DisplayWOutput.cs" />
-    <Compile Include="IT1_PowerTubeWOutput.cs" />
+    <Compile Include="IT09.cs" />
+    <Compile Include="IT08.cs" />
+    <Compile Include="IT07.cs" />
+    <Compile Include="IT06_CookControllerWTimer.cs" />
+    <Compile Include="IT05_CookControllerWUI.cs" />
+    <Compile Include="IT04_CookControllerWPowerTube.cs" />
+    <Compile Include="IT03_LightWOutput.cs" />
+    <Compile Include="IT02_DisplayWOutput.cs" />
+    <Compile Include="IT01_PowerTubeWOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Microwave.Application\Microwave.Application.csproj">
+      <Project>{403619f7-9dfe-4c73-beef-c1c405cec63d}</Project>
+      <Name>Microwave.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MicrowaveOvenClasses\MicrowaveOvenClasses.csproj">
+      <Project>{2b04da6b-afe9-4548-aa05-84d806ba0fa4}</Project>
+      <Name>MicrowaveOvenClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

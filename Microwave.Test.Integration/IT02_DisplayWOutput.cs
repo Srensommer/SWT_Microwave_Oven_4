@@ -8,13 +8,15 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT7
+    public class IT02_DisplayWOutput
     {
 
         [SetUp]
         public void Setup()
         {
+            //uut = new Door();
 
+            //
         }
 
         [Test]

@@ -20,8 +20,8 @@ namespace Microwave.Test.Integration
         [SetUp]
         public void Setup()
         {
-            //output = new Output();
-            output = Substitute.For<Output>();
+            output = new Output();
+            //output = Substitute.For<Output>();
             powerTube = new PowerTube(output);
         }
 
@@ -64,11 +64,11 @@ namespace Microwave.Test.Integration
 
 
 
-        //TODO: Denne og de to næste tests melder tilbage uanset input, at testen er gået godt...
+        //TODO: Denne og de to næste tests melder tilbage uanset input, at testen er gået godt... (husk at bruge substitude til disse)
         [Test]
         public void TurnOn30Output30Test()
         {
-            //TODO: Bruger stubben pt.. Burde vi bruge et "rigtigt" output, som ovenover??
+            //TODO: Bruger en rigtig output pt.. Burde vi bruge en stub output, som disse gør??
             powerTube.TurnOn(30);
             output.Received().OutputLine("PowerTube works with 30 %\r\n");
         }

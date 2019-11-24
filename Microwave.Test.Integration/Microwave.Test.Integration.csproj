@@ -57,7 +57,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IT1.cs" />
+    <Compile Include="IT12.cs" />
+    <Compile Include="IT11.cs" />
+    <Compile Include="IT10.cs" />
+    <Compile Include="IT9.cs" />
+    <Compile Include="IT8.cs" />
+    <Compile Include="IT7.cs" />
+    <Compile Include="IT6_CookControllerWTimer.cs" />
+    <Compile Include="IT5_CookControllerWUI.cs" />
+    <Compile Include="IT4_CookControllerWPowerTube.cs" />
+    <Compile Include="IT3_LightWOutput.cs" />
+    <Compile Include="IT2_DisplayWOutput.cs" />
+    <Compile Include="IT1_PowerTubeWOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

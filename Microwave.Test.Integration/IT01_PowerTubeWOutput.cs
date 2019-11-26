@@ -64,7 +64,7 @@ namespace Microwave.Test.Integration
         {
             //TODO: Bruger en rigtig output pt.. Burde vi bruge en stub output, som disse gør??
             powerTube.TurnOn(30);
-            output.Received().OutputLine("PowerTube works with 30 %\r\n");
+            output.Received().OutputLine("PowerTube works with 30 %");
         }
         [Test]
         public void TurnOffOutputNothingTest2()

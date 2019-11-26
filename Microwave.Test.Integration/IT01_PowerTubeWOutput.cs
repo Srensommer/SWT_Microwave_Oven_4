@@ -21,7 +21,6 @@ namespace Microwave.Test.Integration
         public void Setup()
         {
             output = new Output();
-            //output = Substitute.For<Output>();
             powerTube = new PowerTube(output);
         }
 
@@ -54,30 +53,6 @@ namespace Microwave.Test.Integration
             powerTube.TurnOff();
             console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo("PowerTube works with 20 %\r\nPowerTube turned off\r\n"));
-        }
-
-
-
-        //TODO: Denne og de to næste tests melder tilbage uanset input, at testen er gået godt... (husk at bruge substitute til disse)
-        [Test]
-        public void TurnOn30Output30Test()
-        {
-            //TODO: Bruger en rigtig output pt.. Burde vi bruge en stub output, som disse gør??
-            powerTube.TurnOn(30);
-            output.Received().OutputLine("PowerTube works with 30 %");
-        }
-        [Test]
-        public void TurnOffOutputNothingTest2()
-        {
-            powerTube.TurnOff();
-            output.Received().OutputLine("");
-        }
-        [Test]
-        public void TurnOn30TurnOffOutputTest()
-        {
-            powerTube.TurnOn(30);
-            powerTube.TurnOff();
-            output.Received().OutputLine("PowerTube works with 30 %\r\nPowerTube turned off\r\n");
         }
     }
 }

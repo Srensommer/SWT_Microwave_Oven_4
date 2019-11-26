@@ -20,8 +20,6 @@ namespace Microwave.Test.Integration
         private IOutput output;
         private IDisplay display;
 
-
-
         [SetUp]
         public void Setup()
         {

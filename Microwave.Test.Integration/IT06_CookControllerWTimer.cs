@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
@@ -16,32 +17,38 @@ namespace Microwave.Test.Integration
     {
         private CookController cookController;
         private IPowerTube powerTube;
-        private ITimer timer;
+        private MicrowaveOvenClasses.Boundary.Timer timer;
         private IOutput output;
         private IDisplay display;
 
         [SetUp]
         public void Setup()
         {
-            timer = Substitute.For<ITimer>();
+            timer = new MicrowaveOvenClasses.Boundary.Timer();
             output = Substitute.For<IOutput>();
             display = new Display(output);
-            powerTube = Substitute.For<PowerTube>(output);
+            powerTube = new PowerTube(output);
             cookController = new CookController(timer, display, powerTube);
         }
-
         [Test]
-        public void CookControllerStartCooking2CorrectCallStart2()
+        public void CookingControllerGetsTickEventAfter1Second()
         {
+            ManualResetEvent pause = new ManualResetEvent(false);
+            timer.TimerTick += (timer, tick) => pause.Set();
             cookController.StartCooking(50, 2);
-            timer.Received().Start(2);
+            //Venter til vi får et tick, og tjekker derefter at vi rigtig nok har modtaget et event.
+            Assert.AreEqual(true, pause.WaitOne(1100));
+
         }
         [Test]
-        public void CookControllerStartStopCookingCorrectStopCall()
+        public void CookingControllerGetsNoTickEvent()
         {
+            ManualResetEvent pause = new ManualResetEvent(false);
+            timer.TimerTick += (timer, tick) => pause.Set();
             cookController.StartCooking(50, 2);
-            cookController.Stop();
-            timer.Received().Stop();
+            //Venter, men ikke lang nok tid til vi får et tick, og tjekker derefter at vi rigtig nok ikke har modtaget et event.
+            Assert.AreEqual(false, pause.WaitOne(1));
+
         }
     }
 }

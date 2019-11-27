@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
@@ -24,8 +25,8 @@ namespace Microwave.Test.Integration
         public void Setup()
         {
             timer = Substitute.For<ITimer>();
-            output = Substitute.For<IOutput>();
             display = Substitute.For<IDisplay>();
+            output = Substitute.For<IOutput>();
             powerTube = new PowerTube(output);
             cookController = new CookController(timer, display, powerTube);
         }
@@ -39,7 +40,7 @@ namespace Microwave.Test.Integration
         [Test]
         public void CookControllerStartStopCookingCorrectPrintOut()
         {
-            cookController.StartCooking(50, 2);
+            cookController.StartCooking(50, 1);
             cookController.Stop();
             output.Received().OutputLine(Arg.Is<string>(x => x == "PowerTube turned off"));
         }

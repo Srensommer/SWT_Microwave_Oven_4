@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT09
+    public class IT09_UIWLight
     {
 
         [SetUp]

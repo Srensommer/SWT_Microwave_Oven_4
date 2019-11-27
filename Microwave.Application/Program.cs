@@ -12,7 +12,6 @@ namespace Microwave.Application
     {
         static void Main(string[] args)
         {
-            // Comment to test webhook
             Button startCancelButton = new Button();
             Button powerButton = new Button();
             Button timeButton = new Button();

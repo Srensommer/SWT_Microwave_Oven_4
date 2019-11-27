@@ -59,10 +59,10 @@
   <ItemGroup>
     <Compile Include="IT12.cs" />
     <Compile Include="IT11.cs" />
-    <Compile Include="IT10.cs" />
-    <Compile Include="IT09.cs" />
-    <Compile Include="IT08.cs" />
-    <Compile Include="IT07.cs" />
+    <Compile Include="IT10_UIWCookController.cs" />
+    <Compile Include="IT09_UIWLight.cs" />
+    <Compile Include="IT08_UIWDisplay.cs" />
+    <Compile Include="IT07_TimerWCookController.cs" />
     <Compile Include="IT06_CookControllerWTimer.cs" />
     <Compile Include="IT05_CookControllerWUI.cs" />
     <Compile Include="IT04_CookControllerWPowerTube.cs" />

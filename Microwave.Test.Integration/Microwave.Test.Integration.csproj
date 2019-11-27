@@ -64,7 +64,7 @@
     <Compile Include="IT08_UIWDisplay.cs" />
     <Compile Include="IT07_TimerWCookController.cs" />
     <Compile Include="IT06_CookControllerWTimer.cs" />
-    <Compile Include="IT05_CookControllerWUI.cs" />
+    <Compile Include="IT05_CookControllerWDisplay.cs" />
     <Compile Include="IT04_CookControllerWPowerTube.cs" />
     <Compile Include="IT03_LightWOutput.cs" />
     <Compile Include="IT02_DisplayWOutput.cs" />

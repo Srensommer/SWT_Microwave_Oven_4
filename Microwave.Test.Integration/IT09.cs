@@ -201,10 +201,7 @@ namespace Microwave.Test.Integration
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _light.ClearReceivedCalls();
             _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
-
-            _light.Received().TurnOn();
             _output.Received().OutputLine("Display cleared");
         }
 

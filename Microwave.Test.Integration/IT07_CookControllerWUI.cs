@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
  [TestFixture]
-        public class IT6_CookController
+        public class IT07_CookControllerWUI
         {
             private CookController cookController;
             private IUserInterface userInterface;

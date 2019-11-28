@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT07_TimerWCookController
+    public class IT08_TimerWCookController
     {
         private ITimer timer;
         private ICookController cookController;
@@ -33,7 +33,7 @@ namespace Microwave.Test.Integration
         public void OnTimerTickCookControllerReceivedTickEvent()
         {
             cookController.StartCooking(50, 120);
-            Thread.Sleep(1000);
+            Thread.Sleep(1100);
             output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 01:59"));
         }
         [Test]

@@ -31,7 +31,7 @@ namespace Microwave.Test.Integration
             _display = new Display(_output);
             _sut = new CookController(_timer, _display, _powerTube);
 
-            _timer.TimeRemaining.Returns(10000);
+            _timer.TimeRemaining.Returns(10);
         }
 
         [Test]

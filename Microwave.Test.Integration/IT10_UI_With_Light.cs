@@ -131,8 +131,6 @@ namespace Microwave.Test.Integration
             _output.ClearReceivedCalls();
             _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
-
-            _output.Received().OutputLine("Light is turned on");
             _output.Received().OutputLine("Display cleared");
         }
 

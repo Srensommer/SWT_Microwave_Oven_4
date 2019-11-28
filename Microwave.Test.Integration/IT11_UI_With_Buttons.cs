@@ -14,7 +14,7 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    class IT11
+    class IT11_UI_With_Buttons
     {
         private IDoor _door;
         private IButton _powerButton;
@@ -96,27 +96,7 @@ namespace Microwave.Test.Integration
             _output.ClearReceivedCalls();
             _timeButton.Press();
 
-
             _output.Received().OutputLine("Display shows: 02:00");
-        }
-
-        [Test]
-        public void UserInterface_OnDoorOpened_DisplaysLightOn()
-        {
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
-
-            _output.Received().OutputLine("Light is turned on");
-        }
-
-        [Test]
-        public void UserInterface_OnDoorClosed_DisplaysLightOff()
-        {
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
-
-            _output.ClearReceivedCalls();
-            _userInterface.OnDoorClosed(new object(), EventArgs.Empty);
-
-            _output.Received().OutputLine("Light is turned off");
         }
 
         [Test]
@@ -132,20 +112,6 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UserInterface_CancelPressedWhenCooking_LightsOff()
-        {
-            _powerButton.Press();
-            _timeButton.Press();
-            _startCancelButton.Press();
-
-            _output.ClearReceivedCalls();
-            _startCancelButton.Press();
-
-            _output.Received().OutputLine("Light is turned off");
-            _output.Received().OutputLine("Display cleared");
-        }
-
-        [Test]
         public void UserInterface_CancelPressedWhenSetPower_ClearDisplay()
         {
             _powerButton.Press();
@@ -153,60 +119,6 @@ namespace Microwave.Test.Integration
             _output.ClearReceivedCalls();
             _startCancelButton.Press();
 
-            _output.Received().OutputLine("Display cleared");
-        }
-
-        [Test]
-        public void UserInterface_OpensDoorWhenSetPower_ClearDisplayAndLightsOn()
-        {
-            _powerButton.Press();
-
-            _output.ClearReceivedCalls();
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
-
-
-            _output.Received().OutputLine("Light is turned on");
-            _output.Received().OutputLine("Display cleared");
-        }
-
-        [Test]
-        public void UserInterface_OpensDoorWhenSetTime_ClearDisplayAndLightsOn()
-        {
-            _powerButton.Press();
-            _timeButton.Press();
-
-            _output.ClearReceivedCalls();
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
-
-
-            _output.Received().OutputLine("Light is turned on");
-            _output.Received().OutputLine("Display cleared");
-        }
-
-        [Test]
-        public void UserInterface_OpensDoorWhenCooking_ClearDisplayAndLightsOn()
-        {
-            _powerButton.Press();
-            _timeButton.Press();
-            _startCancelButton.Press();
-
-            _output.ClearReceivedCalls();
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
-
-
-            _output.Received().OutputLine("Light is turned on");
-            _output.Received().OutputLine("Display cleared");
-        }
-
-        [Test]
-        public void UserInterface_CookingFinishes_ClearDisplayAndLightsOn()
-        {
-            _powerButton.Press();
-            _timeButton.Press();
-            _startCancelButton.Press();
-
-            Thread.Sleep(1000*65);
-            _output.Received().OutputLine("Light is turned on");
             _output.Received().OutputLine("Display cleared");
         }
     }

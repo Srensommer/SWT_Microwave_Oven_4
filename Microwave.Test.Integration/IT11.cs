@@ -53,8 +53,6 @@ namespace Microwave.Test.Integration
                 _display,
                 _light,
                 _cookController);
-
-
         }
 
         [Test]
@@ -182,7 +180,7 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UserInterface_OpensDoordWhenCooking_ClearDisplayAndLightsOn()
+        public void UserInterface_OpensDoorWhenCooking_ClearDisplayAndLightsOn()
         {
             _powerButton.Press();
             _timeButton.Press();

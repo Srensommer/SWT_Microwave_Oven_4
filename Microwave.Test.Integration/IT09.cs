@@ -37,7 +37,7 @@ namespace Microwave.Test.Integration
             _output = Substitute.For<IOutput>();
 
             _display = new Display(_output);
-            _light = new Light(_output);
+            _light = Substitute.For<ILight>();
 
             _timer = new Timer();
 
@@ -105,7 +105,7 @@ namespace Microwave.Test.Integration
         {
             _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
 
-            _output.Received().OutputLine("Light is turned on");
+            _light.Received().TurnOn();
         }
 
         [Test]
@@ -113,10 +113,10 @@ namespace Microwave.Test.Integration
         {
             _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
 
-            _output.ClearReceivedCalls();
+            _light.ClearReceivedCalls();
             _userInterface.OnDoorClosed(new object(), EventArgs.Empty);
 
-            _output.Received().OutputLine("Light is turned off");
+            _light.Received().TurnOff();
         }
 
         [Test]
@@ -133,18 +133,19 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UserInterface_CancelPressedWhenCooking_LightsOff()
+        public void UserInterface_CancelPressedWhenCooking_LightsOffAndDisplayCleared()
         {
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
+            _light.ClearReceivedCalls();
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
 
 
-            _output.Received().OutputLine("Light is turned off");
             _output.Received().OutputLine("Display cleared");
+            _light.TurnOff();
         }
 
         [Test]
@@ -165,10 +166,11 @@ namespace Microwave.Test.Integration
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
+            _light.ClearReceivedCalls();
             _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
 
 
-            _output.Received().OutputLine("Light is turned on");
+            _light.Received().TurnOn();
             _output.Received().OutputLine("Display cleared");
         }
 
@@ -179,25 +181,27 @@ namespace Microwave.Test.Integration
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
+            _light.ClearReceivedCalls();
             _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
 
 
-            _output.Received().OutputLine("Light is turned on");
+            _light.Received().TurnOn();
             _output.Received().OutputLine("Display cleared");
         }
 
         [Test]
-        public void UserInterface_OpensDoordWhenCooking_ClearDisplayAndLightsOn()
+        public void UserInterface_OpensDoorWhenCooking_ClearDisplayAndLightsOn()
         {
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
+            _light.ClearReceivedCalls();
             _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
 
 
-            _output.Received().OutputLine("Light is turned on");
+            _light.Received().TurnOn();
             _output.Received().OutputLine("Display cleared");
         }
 
@@ -214,7 +218,7 @@ namespace Microwave.Test.Integration
             }
 
 
-            _output.Received().OutputLine("Light is turned on");
+            _light.Received().TurnOn();
             _output.Received().OutputLine("Display cleared");
         }
     }

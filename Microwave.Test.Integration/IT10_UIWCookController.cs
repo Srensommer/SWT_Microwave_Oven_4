@@ -59,48 +59,6 @@ namespace Microwave.Test.Integration
             _cookController.UI = _userInterface;
         }
 
-        [Test]
-        public void UserInterface_OnPowerPressed_Output50W()
-        {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-
-            _output.Received().OutputLine("Display shows: 50 W");
-        }
-
-        [Test]
-        public void UserInterface_OnPowerPressedTwice_Output100W()
-        {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-
-            _output.ClearReceivedCalls();
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-
-
-            _output.Received().OutputLine("Display shows: 100 W");
-        }
-
-        [Test]
-        public void UserInterface_OnTimePressed_ShowsTime()
-        {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-
-
-            _output.Received().OutputLine("Display shows: 01:00");
-        }
-
-        [Test]
-        public void UserInterface_OnTimePressedTwice_ShowsTime()
-        {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-
-            _output.ClearReceivedCalls();
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-
-
-            _output.Received().OutputLine("Display shows: 02:00");
-        }
 
         [Test]
         public void UserInterface_OnDoorOpened_DisplaysLightOn()
@@ -122,19 +80,6 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UserInterface_StartButtonPressed_DoesStuff()
-        {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-
-            _output.ClearReceivedCalls();
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
-
-
-            _output.Received().OutputLine("PowerTube works with 7 %");
-        }
-
-        [Test]
         public void UserInterface_CancelPressedWhenCooking_LightsOff()
         {
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
@@ -146,18 +91,6 @@ namespace Microwave.Test.Integration
 
 
             _output.Received().OutputLine("Light is turned off");
-            _output.Received().OutputLine("Display cleared");
-        }
-
-        [Test]
-        public void UserInterface_CancelPressedWhenSetPower_ClearDisplay()
-        {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-
-            _output.ClearReceivedCalls();
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
-
-
             _output.Received().OutputLine("Display cleared");
         }
 
@@ -215,5 +148,16 @@ namespace Microwave.Test.Integration
             _output.Received().OutputLine("Light is turned on");
             _output.Received().OutputLine("Display cleared");
         }
+        [Test]
+        public void UserInterface_ChangeStateToCooking_LightsOn()
+        {
+            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+
+
+            _output.Received().OutputLine("Light is turned on");
+        }
+
     }
 }

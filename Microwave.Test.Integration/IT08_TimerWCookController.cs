@@ -43,7 +43,7 @@ namespace Microwave.Test.Integration
         public void OnTimerExpiredControllerReceivedStop()
         {
             cookController.StartCooking(50, 2);
-            Thread.Sleep(2000);
+            Thread.Sleep(2100);
             output.Received().OutputLine(Arg.Is<string>(x => x == "PowerTube turned off"));
             //TODO: Burde jeg teste med "light is turned off"?
         }

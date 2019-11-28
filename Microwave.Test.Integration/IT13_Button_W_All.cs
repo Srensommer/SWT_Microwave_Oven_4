@@ -21,7 +21,7 @@ namespace Microwave.Test.Integration
         private IDisplay display;
         private ILight light;
         private ITimer timer1;
-        private ICookController cookController;
+        private CookController cookController;
         private IUserInterface userInterface;
         private IButton powerButton, startCancelButton, timeButton;
         private IDoor door;
@@ -41,6 +41,7 @@ namespace Microwave.Test.Integration
             startCancelButton = new Button();
             timeButton = new Button();
             userInterface = new UserInterface(powerButton, timeButton, startCancelButton, door, display, light, cookController);
+            cookController.UI = userInterface;
         }
 
         [Test]
@@ -85,12 +86,19 @@ namespace Microwave.Test.Integration
             timeButton.Press();
             startCancelButton.Press();
 
-            Assert.That((pause.WaitOne(1000 * 125))); //60 sec bør være nok
 
             output.Received().OutputLine(Arg.Is<string>(x => x == "Light is turned on"));
             output.Received().OutputLine(Arg.Is<string>(x => x == "PowerTube works with 7 %"));
             output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 01:00"));
-            output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 00:05"));
+            output.ClearReceivedCalls();
+
+            Thread.Sleep(1000*70);
+            //Assert.That((pause.WaitOne(1000 * 125))); //60 sec bør være nok
+
+           
+            output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 00:59"));
+            output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 00:01"));
+            output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 00:00"));
             output.Received().OutputLine(Arg.Is<string>(x => x == "PowerTube turned off"));
             output.Received().OutputLine(Arg.Is<string>(x => x == "Display cleared"));
             output.Received().OutputLine(Arg.Is<string>(x => x == "Light is turned off"));

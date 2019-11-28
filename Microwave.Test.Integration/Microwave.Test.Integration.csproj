@@ -62,7 +62,7 @@
   <ItemGroup>
     <Compile Include="IT07_CookControllerWUI.cs" />
     <Compile Include="IT09.cs" />
-    <Compile Include="IT12.cs" />
+    <Compile Include="IT12_UI_W_All.cs" />
     <Compile Include="IT11.cs" />
     <Compile Include="IT10_UIWCookController.cs" />
     <Compile Include="IT0X_UIWDisplay.cs" />

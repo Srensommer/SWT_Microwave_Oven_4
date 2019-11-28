@@ -49,14 +49,5 @@ namespace Microwave.Test.Integration
             //Venter, men ikke lang nok tid til vi får et tick, og tjekker derefter at vi rigtig nok ikke har modtaget et event.
             Assert.AreEqual(false, pause.WaitOne(1));
         }
-        [Test]
-        public void CookingControllerGetsTimeExpiredEventAfter1Second()
-        {
-            ManualResetEvent pause = new ManualResetEvent(false);
-            timer.Expired += (timer, tick) => pause.Set();
-            cookController.StartCooking(50, 1);
-            //Venter, lang nok tid til vi får et tick, dette tick er det sidste, så derfor forventer vi et time expired event
-            Assert.AreEqual(true, pause.WaitOne(2000));
-        }
     }
 }

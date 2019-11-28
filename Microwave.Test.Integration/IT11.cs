@@ -21,7 +21,7 @@ namespace Microwave.Test.Integration
         private IButton _timeButton;
         private IButton _startCancelButton;
         private IUserInterface _userInterface;
-        private ICookController _cookController;
+        private CookController _cookController;
         private ITimer _timer;
         private ILight _light;
         private IDisplay _display;
@@ -55,6 +55,8 @@ namespace Microwave.Test.Integration
                 _display,
                 _light,
                 _cookController);
+
+            _cookController.UI = _userInterface;
         }
 
         [Test]

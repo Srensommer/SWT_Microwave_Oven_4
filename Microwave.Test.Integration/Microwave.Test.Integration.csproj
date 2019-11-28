@@ -65,7 +65,6 @@
     <Compile Include="IT12.cs" />
     <Compile Include="IT11.cs" />
     <Compile Include="IT10_UIWCookController.cs" />
-    <Compile Include="IT09_UIWLight.cs" />
     <Compile Include="IT0X_UIWDisplay.cs" />
     <Compile Include="IT08_TimerWCookController.cs" />
     <Compile Include="IT06_CookControllerWTimer.cs" />

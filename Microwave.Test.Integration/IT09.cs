@@ -101,19 +101,45 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UserInterface_OnDoorOpened_DoesStuff()
+        public void UserInterface_OnDoorOpened_DisplaysLightOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
 
-            _output.Received().OutputLine("Display shows: 50 W");
+            _output.Received().OutputLine("Light is turned on");
         }
 
         [Test]
-        public void UserInterface_OnDoorClosed_DoesStuff()
+        public void UserInterface_OnDoorClosed_DisplaysLightOff()
+        {
+            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _userInterface.OnDoorClosed(new object(), EventArgs.Empty);
+
+            _output.Received().OutputLine("Light is turned off");
+        }
+
+        [Test]
+        public void UserInterface_StartButtonPressed_DoesStuff()
         {
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
 
-            _output.Received().OutputLine("Display shows: 50 W");
+            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+
+
+            _output.Received().OutputLine("PowerTube works with 7 %");
+        }
+
+        [Test]
+        public void UserInterface_CancelPressedWhenCooking_LightsOff()
+        {
+            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+
+
+            _output.Received().OutputLine("Light is turned off");
+            _output.Received().OutputLine("Display cleared");
         }
     }
 }

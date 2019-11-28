@@ -212,14 +212,13 @@ namespace Microwave.Test.Integration
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
 
-            for (int i = 0; i < 60; i++)
-            {
-                _timer.TimerTick += Raise.EventWith(new object(), EventArgs.Empty);
-            }
 
+
+            List<string> outputString = new List<string>();
+            _output.OutputLine(Arg.Do<string>(x => outputString.Append(x)));
+            Assert.That(() => outputString.Contains("Display cleared"), Is.True.After(61*1000));
 
             _light.Received().TurnOn();
-            _output.Received().OutputLine("Display cleared");
         }
     }
 }

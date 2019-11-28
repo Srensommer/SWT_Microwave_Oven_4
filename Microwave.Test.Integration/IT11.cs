@@ -60,7 +60,7 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OnPowerPressed_Output50W()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _powerButton.Press();
 
             _output.Received().OutputLine("Display shows: 50 W");
         }

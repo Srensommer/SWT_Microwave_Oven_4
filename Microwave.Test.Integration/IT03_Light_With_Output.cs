@@ -11,16 +11,16 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT03_LightWOutput
+    public class IT03_Light_With_Output
     {
-        private IOutput output;
-        private ILight light;
+        private IOutput _output;
+        private ILight _sut;
 
         [SetUp]
         public void Setup()
         {
-            output = new Output();
-            light = new Light(output);
+            _output = new Output();
+            _sut = new Light(_output);
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace Microwave.Test.Integration
             string console;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            light.TurnOn();
+            _sut.TurnOn();
             console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo("Light is turned on\r\n"));
         }
@@ -39,18 +39,18 @@ namespace Microwave.Test.Integration
             string console;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            light.TurnOff();
+            _sut.TurnOff();
             console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo(""));
         }
         [Test]
         public void LightOffWhileOnOutputLightOffTest()
         {
-            light.TurnOn();
+            _sut.TurnOn();
             string console;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            light.TurnOff();
+            _sut.TurnOff();
             console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo("Light is turned off\r\n"));
         }

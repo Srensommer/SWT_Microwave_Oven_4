@@ -12,16 +12,16 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT01_PowerTubeWOutput
+    public class IT01_PowerTube_With_Output
     {
-        private IOutput output;
-        private IPowerTube powerTube;
+        private IOutput _output;
+        private IPowerTube _sut;
 
         [SetUp]
         public void Setup()
         {
-            output = new Output();
-            powerTube = new PowerTube(output);
+            _output = new Output();
+            _sut = new PowerTube(_output);
         }
 
         [Test]
@@ -30,7 +30,7 @@ namespace Microwave.Test.Integration
             string console;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            powerTube.TurnOn(20);
+            _sut.TurnOn(20);
             console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo("PowerTube works with 20 %\r\n"));
         }
@@ -39,7 +39,7 @@ namespace Microwave.Test.Integration
         {
             string console;
             StringWriter stringWriter = new StringWriter();
-            powerTube.TurnOff();
+            _sut.TurnOff();
             console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo(""));
         }
@@ -49,8 +49,8 @@ namespace Microwave.Test.Integration
             string console;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            powerTube.TurnOn(20);
-            powerTube.TurnOff();
+            _sut.TurnOn(20);
+            _sut.TurnOff();
             console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo("PowerTube works with 20 %\r\nPowerTube turned off\r\n"));
         }

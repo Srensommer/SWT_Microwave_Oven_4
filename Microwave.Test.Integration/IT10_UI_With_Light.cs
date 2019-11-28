@@ -20,7 +20,7 @@ namespace Microwave.Test.Integration
         private IButton _powerButton;
         private IButton _timeButton;
         private IButton _startCancelButton;
-        private IUserInterface _userInterface;
+        private IUserInterface _sut;
         private CookController _cookController;
         private ITimer _timer;
         private ILight _light;
@@ -47,7 +47,7 @@ namespace Microwave.Test.Integration
             _cookController = new CookController(_timer, _display, _powerTube);
 
 
-            _userInterface = new UserInterface(
+            _sut = new UserInterface(
                 _powerButton,
                 _timeButton,
                 _startCancelButton,
@@ -56,14 +56,14 @@ namespace Microwave.Test.Integration
                 _light,
                 _cookController);
 
-            _cookController.UI = _userInterface;
+            _cookController.UI = _sut;
         }
 
 
         [Test]
         public void UserInterface_OnDoorOpened_DisplaysLightOn()
         {
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
             _output.Received().OutputLine("Light is turned on");
         }
@@ -71,10 +71,10 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OnDoorClosed_DisplaysLightOff()
         {
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnDoorClosed(new object(), EventArgs.Empty);
+            _sut.OnDoorClosed(new object(), EventArgs.Empty);
 
             _output.Received().OutputLine("Light is turned off");
         }
@@ -82,12 +82,12 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_CancelPressedWhenCooking_LightsOff()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Light is turned off");
@@ -97,10 +97,10 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OpensDoorWhenStateIsSetPower_ClearDisplayAndLightsOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Light is turned on");
@@ -110,11 +110,11 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OpensDoorWhenStateIsSetTime_ClearDisplayAndLightsOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Light is turned on");
@@ -124,12 +124,12 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OpensDoorWhenStateIsCooking_ClearDisplayAndLightsOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Light is turned on");
@@ -139,9 +139,9 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_CookingFinishes_ClearDisplayAndLightsOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
             Thread.Sleep(1000*65);
 
@@ -151,9 +151,9 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_ChangeStateToCooking_LightsOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Light is turned on");

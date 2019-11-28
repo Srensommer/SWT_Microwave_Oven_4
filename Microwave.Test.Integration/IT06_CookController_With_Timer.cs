@@ -13,30 +13,30 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT06_CookControllerWTimer
+    public class IT06_CookController_With_Timer
     {
-        private ICookController cookController;
-        private IPowerTube powerTube;
-        private ITimer timer;
-        private IOutput output;
-        private IDisplay display;
+        private ICookController _sut;
+        private IPowerTube _powerTube;
+        private ITimer _timer;
+        private IOutput _output;
+        private IDisplay _display;
 
         [SetUp]
         public void Setup()
         {
-            output = Substitute.For<IOutput>();
-            timer = new MicrowaveOvenClasses.Boundary.Timer();
-            display = new Display(output);
-            powerTube = new PowerTube(output);
-            cookController = new CookController(timer, display, powerTube);
+            _output = Substitute.For<IOutput>();
+            _timer = new MicrowaveOvenClasses.Boundary.Timer();
+            _display = new Display(_output);
+            _powerTube = new PowerTube(_output);
+            _sut = new CookController(_timer, _display, _powerTube);
         }
         [Test]
         public void CookingControllerGetsTickEventAfter1Second()
         {
             //Vi bruger her ManualResetEvent. Vi er inspirerede af https://docs.microsoft.com/en-us/dotnet/api/system.threading.manualresetevent?view=netframework-4.8
             ManualResetEvent pause = new ManualResetEvent(false);
-            timer.TimerTick += (timer, tick) => pause.Set();
-            cookController.StartCooking(50, 2);
+            _timer.TimerTick += (timer, tick) => pause.Set();
+            _sut.StartCooking(50, 2);
             //Venter til vi får et tick, og tjekker derefter at vi rigtig nok har modtaget et event.
             Assert.AreEqual(true, pause.WaitOne(1100));
         }
@@ -44,8 +44,8 @@ namespace Microwave.Test.Integration
         public void CookingControllerGetsNoTickEventAfter1MilliSecond()
         {
             ManualResetEvent pause = new ManualResetEvent(false);
-            timer.TimerTick += (timer, tick) => pause.Set();
-            cookController.StartCooking(50, 2);
+            _timer.TimerTick += (timer, tick) => pause.Set();
+            _sut.StartCooking(50, 2);
             //Venter, men ikke lang nok tid til vi får et tick, og tjekker derefter at vi rigtig nok ikke har modtaget et event.
             Assert.AreEqual(false, pause.WaitOne(1));
         }

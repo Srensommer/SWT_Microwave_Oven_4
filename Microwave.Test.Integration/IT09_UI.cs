@@ -14,13 +14,13 @@ using Timer = MicrowaveOvenClasses.Boundary.Timer;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    class IT09
+    class IT09_UI
     {
         private IDoor _door;
         private IButton _powerButton;
         private IButton _timeButton;
         private IButton _startCancelButton;
-        private IUserInterface _userInterface;
+        private IUserInterface _sut;
         private CookController _cookController;
         private ITimer _timer;
         private ILight _light;
@@ -47,7 +47,7 @@ namespace Microwave.Test.Integration
             _cookController = new CookController(_timer, _display, _powerTube);
             
 
-            _userInterface = new UserInterface(
+            _sut = new UserInterface(
                 _powerButton, 
                 _timeButton, 
                 _startCancelButton, 
@@ -56,7 +56,7 @@ namespace Microwave.Test.Integration
                 _light, 
                 _cookController);
 
-            _cookController.UI = _userInterface;
+            _cookController.UI = _sut;
 
 
         }
@@ -64,7 +64,7 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OnPowerPressed_Output50W()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
 
             _output.Received().OutputLine("Display shows: 50 W");
         }
@@ -72,10 +72,10 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OnPowerPressedTwice_Output100W()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Display shows: 100 W");
@@ -84,8 +84,8 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OnTimePressed_ShowsTime()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Display shows: 01:00");
@@ -94,11 +94,11 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OnTimePressedTwice_ShowsTime()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Display shows: 02:00");
@@ -107,7 +107,7 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OnDoorOpened_DisplaysLightOn()
         {
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
             _light.Received().TurnOn();
         }
@@ -115,10 +115,10 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OnDoorClosed_DisplaysLightOff()
         {
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
             _light.ClearReceivedCalls();
-            _userInterface.OnDoorClosed(new object(), EventArgs.Empty);
+            _sut.OnDoorClosed(new object(), EventArgs.Empty);
 
             _light.Received().TurnOff();
         }
@@ -126,11 +126,11 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_StartButtonPressed_DoesStuff()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("PowerTube works with 7 %");
@@ -139,13 +139,13 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_CancelPressedWhenCooking_LightsOffAndDisplayCleared()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
             _light.ClearReceivedCalls();
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Display cleared");
@@ -155,10 +155,10 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_CancelPressedWhenSetPower_ClearDisplay()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Display cleared");
@@ -167,11 +167,11 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OpensDoordWhenSetPower_ClearDisplayAndLightsOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
             _light.ClearReceivedCalls();
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
 
             _light.Received().TurnOn();
@@ -181,12 +181,12 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OpensDoordWhenSetTime_ClearDisplayAndLightsOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
             _light.ClearReceivedCalls();
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
 
 
             _light.Received().TurnOn();
@@ -196,21 +196,21 @@ namespace Microwave.Test.Integration
         [Test]
         public void UserInterface_OpensDoorWhenCooking_ClearDisplayAndLightsOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
             _output.ClearReceivedCalls();
-            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+            _sut.OnDoorOpened(new object(), EventArgs.Empty);
             _output.Received().OutputLine("Display cleared");
         }
 
         [Test]
         public void UserInterface_CookingFinishes_ClearDisplayAndLightsOn()
         {
-            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
-            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
-            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+            _sut.OnPowerPressed(new object(), EventArgs.Empty);
+            _sut.OnTimePressed(new object(), EventArgs.Empty);
+            _sut.OnStartCancelPressed(new object(), EventArgs.Empty);
 
             Thread.Sleep(1000*65);
            _output.Received().OutputLine("Display cleared");

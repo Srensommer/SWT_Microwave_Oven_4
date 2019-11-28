@@ -11,16 +11,16 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT02_DisplayWOutput
+    public class IT02_Display_With_Output
     {
-        private IOutput output;
-        private IDisplay display;
+        private IOutput _output;
+        private IDisplay _sut;
 
         [SetUp]
         public void Setup()
         {
-            output = new Output();
-            display = new Display(output);
+            _output = new Output();
+            _sut = new Display(_output);
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace Microwave.Test.Integration
             string console;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            display.ShowTime(1,2);
+            _sut.ShowTime(1,2);
             console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo("Display shows: 01:02\r\n"));
         }
@@ -39,7 +39,7 @@ namespace Microwave.Test.Integration
             string console;
             StringWriter stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
-            display.ShowPower(1);
+            _sut.ShowPower(1);
             console = stringWriter.ToString();
             Assert.That(console, Is.EqualTo("Display shows: 1 W\r\n"));
         }

@@ -60,21 +60,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IT07_CookControllerWUI.cs" />
-    <Compile Include="IT09.cs" />
-    <Compile Include="IT12_UI_W_All.cs" />
+    <Compile Include="IT07_CookController_With_UI.cs" />
+    <Compile Include="IT09_UI.cs" />
+    <Compile Include="IT12_UI_With_Door.cs" />
     <Compile Include="IT11_UI_With_Buttons.cs" />
-    <Compile Include="IT10_UIWCookController.cs" />
-    <Compile Include="IT0X_UIWDisplay.cs" />
-    <Compile Include="IT08_TimerWCookController.cs" />
-    <Compile Include="IT06_CookControllerWTimer.cs" />
-    <Compile Include="IT05_CookControllerWDisplay.cs" />
-    <Compile Include="IT04_CookControllerWPowerTube.cs" />
-    <Compile Include="IT03_LightWOutput.cs" />
-    <Compile Include="IT02_DisplayWOutput.cs" />
-    <Compile Include="IT01_PowerTubeWOutput.cs" />
-    <Compile Include="IT13_Button_W_All.cs" />
-    <Compile Include="IT14_Door_W_All.cs" />
+    <Compile Include="IT10_UI_With_Light.cs" />
+    <Compile Include="IT08_Timer_With_CookController.cs" />
+    <Compile Include="IT06_CookController_With_Timer.cs" />
+    <Compile Include="IT05_CookController_With_Display.cs" />
+    <Compile Include="IT04_CookController_With_PowerTube.cs" />
+    <Compile Include="IT03_Light_With_Output.cs" />
+    <Compile Include="IT02_Display_With_Output.cs" />
+    <Compile Include="IT01_PowerTube_With_Output.cs" />
+    <Compile Include="IT13_Button_With_All.cs" />
+    <Compile Include="IT14_Door_With_All.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -2,24 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    class IT12_UI_W_All
+    class IT12_UI_With_Door
     {
         private IDoor _door;
         private IButton _powerButton;
         private IButton _timeButton;
         private IButton _startCancelButton;
-        private IUserInterface _userInterface;
-        private ICookController _cookController;
+        private IUserInterface _sut;
+        private CookController _cookController;
         private ITimer _timer;
         private ILight _light;
         private IDisplay _display;
@@ -45,7 +47,7 @@ namespace Microwave.Test.Integration
             _cookController = new CookController(_timer, _display, _powerTube);
 
 
-            _userInterface = new UserInterface(
+            _sut = new UserInterface(
                 _powerButton,
                 _timeButton,
                 _startCancelButton,
@@ -53,6 +55,7 @@ namespace Microwave.Test.Integration
                 _display,
                 _light,
                 _cookController);
+            _cookController.UI = _sut;
         }
 
         [Test]
@@ -187,9 +190,6 @@ namespace Microwave.Test.Integration
 
             _output.ClearReceivedCalls();
             _door.Open();
-
-
-            _output.Received().OutputLine("Light is turned on");
             _output.Received().OutputLine("Display cleared");
         }
 
@@ -199,11 +199,7 @@ namespace Microwave.Test.Integration
             _powerButton.Press();
             _timeButton.Press();
             _startCancelButton.Press();
-
-            for (int i = 0; i < 60; i++)
-            {
-                _timer.TimerTick += Raise.EventWith(new object(), EventArgs.Empty);
-            }
+            Thread.Sleep(61000);
 
 
             _output.Received().OutputLine("Light is turned on");

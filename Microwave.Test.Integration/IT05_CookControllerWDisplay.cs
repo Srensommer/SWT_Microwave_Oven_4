@@ -31,15 +31,15 @@ namespace Microwave.Test.Integration
             display = new Display(output);
             cookController = new CookController(timer, display, powerTube);
 
-            timer.TimeRemaining.Returns(118);
+            timer.TimeRemaining.Returns(10000);
         }
 
         [Test]
-        public void CookingControllerMakesDisplayCallOutput()
+        public void CookingControllerCallsDisplayWithShowTimerDisplayCallOutput()
         {
-            cookController.StartCooking(50, 2);
+            cookController.StartCooking(50, 11);
             cookController.OnTimerTick(new object(), EventArgs.Empty);
-            output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 01:58"));
+            output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 00:10"));
         }
     }
 }

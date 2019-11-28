@@ -44,5 +44,6 @@ namespace Microwave.Test.Integration
             cookController.Stop();
             output.Received().OutputLine(Arg.Is<string>(x => x == "PowerTube turned off"));
         }
+
     }
 }

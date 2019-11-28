@@ -162,7 +162,7 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UserInterface_OpensDoordWhenSetPower_ClearDisplayAndLightsOn()
+        public void UserInterface_OpensDoorWhenStateIsSetPower_ClearDisplayAndLightsOn()
         {
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
 
@@ -175,7 +175,7 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UserInterface_OpensDoordWhenSetTime_ClearDisplayAndLightsOn()
+        public void UserInterface_OpensDoorWhenStateIsSetTime_ClearDisplayAndLightsOn()
         {
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);
@@ -189,7 +189,7 @@ namespace Microwave.Test.Integration
         }
 
         [Test]
-        public void UserInterface_OpensDoordWhenCooking_ClearDisplayAndLightsOn()
+        public void UserInterface_OpensDoorWhenStateIsCooking_ClearDisplayAndLightsOn()
         {
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);

@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
 namespace Microwave.Test.Integration
 {
@@ -208,11 +210,7 @@ namespace Microwave.Test.Integration
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
 
-            for (int i = 0; i < 60; i++)
-            {
-                _timer.TimerTick += Raise.EventWith(new object(), EventArgs.Empty);
-            }
-
+            Thread.Sleep(1000*65);
 
             _output.Received().OutputLine("Light is turned on");
             _output.Received().OutputLine("Display cleared");

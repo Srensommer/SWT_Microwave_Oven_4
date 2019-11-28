@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MicrowaveOvenClasses.Boundary;
 using MicrowaveOvenClasses.Controllers;
 using MicrowaveOvenClasses.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
+using Timer = MicrowaveOvenClasses.Boundary.Timer;
 
 namespace Microwave.Test.Integration
 {
@@ -212,12 +214,8 @@ namespace Microwave.Test.Integration
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
 
-
-
-            List<string> outputString = new List<string>();
-            _output.OutputLine(Arg.Do<string>(x => outputString.Append(x)));
-            Assert.That(() => outputString.Contains("Display cleared"), Is.True.After(61*1000));
-
+            Thread.Sleep(1000*65);
+           _output.Received().OutputLine("Display cleared");
             _light.Received().TurnOn();
         }
     }

@@ -12,7 +12,7 @@ using NUnit.Framework;
 namespace Microwave.Test.Integration
 {
     [TestFixture]
-    public class IT08_UIWDisplay
+    public class IT0X_UIWDisplay
     {
         private IUserInterface userInterface;
         private IDisplay display;

@@ -14,7 +14,7 @@ namespace Microwave.Test.Integration
     public class IT02_DisplayWOutput
     {
         private IOutput output;
-        private Display display;
+        private IDisplay display;
 
         [SetUp]
         public void Setup()

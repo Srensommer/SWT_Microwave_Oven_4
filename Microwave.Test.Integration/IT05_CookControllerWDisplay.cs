@@ -17,34 +17,29 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class IT05_CookControllerWDisplay
     {
-        private CookController cookController;
-        private Display display;
-        private PowerTube powerTube;
+        private ICookController cookController;
+        private IDisplay display;
+        private IPowerTube powerTube;
         private ITimer timer;
         private IOutput output;
         [SetUp]
         public void Setup()
         {
-            timer = Substitute.For<ITimer>();
             output = Substitute.For<IOutput>();
-            display = new Display(output);
+            timer = Substitute.For<ITimer>();
             powerTube = new PowerTube(output);
+            display = new Display(output);
             cookController = new CookController(timer, display, powerTube);
 
             timer.TimeRemaining.Returns(118);
         }
 
         [Test]
-        public void CookingControllerCallsDisplayWithCookingIsDone()
+        public void CookingControllerMakesDisplayCallOutput()
         {
             cookController.StartCooking(50, 2);
             cookController.OnTimerTick(new object(), EventArgs.Empty);
             output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 01:58"));
-        }
-
-        private void Timer_TimerTick(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -15,17 +15,17 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class IT06_CookControllerWTimer
     {
-        private CookController cookController;
+        private ICookController cookController;
         private IPowerTube powerTube;
-        private MicrowaveOvenClasses.Boundary.Timer timer;
+        private ITimer timer;
         private IOutput output;
         private IDisplay display;
 
         [SetUp]
         public void Setup()
         {
-            timer = new MicrowaveOvenClasses.Boundary.Timer();
             output = Substitute.For<IOutput>();
+            timer = new MicrowaveOvenClasses.Boundary.Timer();
             display = new Display(output);
             powerTube = new PowerTube(output);
             cookController = new CookController(timer, display, powerTube);

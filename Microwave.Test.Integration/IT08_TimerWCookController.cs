@@ -20,37 +20,29 @@ namespace Microwave.Test.Integration
         private IPowerTube powerTube;
         private IOutput output;
         private IDisplay display;
-
         [SetUp]
         public void Setup()
         {
-            timer = Substitute.For<ITimer>();
             output = Substitute.For<IOutput>();
-            display = Substitute.For<IDisplay>();
-            powerTube = Substitute.For<PowerTube>(output);
-            cookController = Substitute.For<CookController>(timer, display, powerTube);
+            powerTube = new PowerTube(output);
+            display = new Display(output);
+            timer = new MicrowaveOvenClasses.Boundary.Timer();
+            cookController = new CookController(timer, display, powerTube);
         }
         [Test]
         public void OnTimerTickCookControllerReceivedTickEvent()
         {
-            cookController.StartCooking(50, 1);
-
-            Thread.Sleep(1500);
-            //Make sure we Receive OnTimerTick event
+            cookController.StartCooking(50, 120);
+            Thread.Sleep(1000);
+            output.Received().OutputLine(Arg.Is<string>(x => x == "Display shows: 01:59"));
         }
         [Test]
         public void OnTimerExpiredControllerReceivedStop()
         {
             cookController.StartCooking(50, 2);
-            Thread.Sleep(2500);
-            cookController.Received(1).Stop();
-        }
-        [Test]
-        public void OnTimerExpiredControllerReceivedExpiredEvent()
-        {
-            cookController.StartCooking(50, 2);
-            Thread.Sleep(2500);
-            //Make sure we received timer event
+            Thread.Sleep(2000);
+            output.Received().OutputLine(Arg.Is<string>(x => x == "PowerTube turned off"));
+            //TODO: Burde jeg teste med "light is turned off"?
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Microwave.Test.Integration
     public class IT03_LightWOutput
     {
         private IOutput output;
-        private Light light;
+        private ILight light;
 
         [SetUp]
         public void Setup()

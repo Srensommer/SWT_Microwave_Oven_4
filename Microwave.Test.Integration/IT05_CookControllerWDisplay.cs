@@ -17,7 +17,7 @@ namespace Microwave.Test.Integration
     [TestFixture]
     public class IT05_CookControllerWDisplay
     {
-        private ICookController cookController;
+        private CookController cookController;
         private IDisplay display;
         private IPowerTube powerTube;
         private ITimer timer;

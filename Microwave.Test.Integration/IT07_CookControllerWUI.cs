@@ -15,7 +15,7 @@ namespace Microwave.Test.Integration
  [TestFixture]
         public class IT6_CookController
         {
-            private ICookController cookController;
+            private CookController cookController;
             private IUserInterface userInterface;
             private IOutput output;
             private IDisplay display;

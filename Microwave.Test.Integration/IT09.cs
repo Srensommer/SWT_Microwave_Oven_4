@@ -112,6 +112,8 @@ namespace Microwave.Test.Integration
         public void UserInterface_OnDoorClosed_DisplaysLightOff()
         {
             _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+
+            _output.ClearReceivedCalls();
             _userInterface.OnDoorClosed(new object(), EventArgs.Empty);
 
             _output.Received().OutputLine("Light is turned off");
@@ -123,6 +125,7 @@ namespace Microwave.Test.Integration
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);
 
+            _output.ClearReceivedCalls();
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
 
 
@@ -135,10 +138,83 @@ namespace Microwave.Test.Integration
             _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
             _userInterface.OnTimePressed(new object(), EventArgs.Empty);
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+
+            _output.ClearReceivedCalls();
             _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
 
 
             _output.Received().OutputLine("Light is turned off");
+            _output.Received().OutputLine("Display cleared");
+        }
+
+        [Test]
+        public void UserInterface_CancelPressedWhenSetPower_ClearDisplay()
+        {
+            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+
+            _output.ClearReceivedCalls();
+            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+
+
+            _output.Received().OutputLine("Display cleared");
+        }
+
+        [Test]
+        public void UserInterface_OpensDoordWhenSetPower_ClearDisplayAndLightsOn()
+        {
+            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+
+            _output.ClearReceivedCalls();
+            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+
+
+            _output.Received().OutputLine("Light is turned on");
+            _output.Received().OutputLine("Display cleared");
+        }
+
+        [Test]
+        public void UserInterface_OpensDoordWhenSetTime_ClearDisplayAndLightsOn()
+        {
+            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+
+            _output.ClearReceivedCalls();
+            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+
+
+            _output.Received().OutputLine("Light is turned on");
+            _output.Received().OutputLine("Display cleared");
+        }
+
+        [Test]
+        public void UserInterface_OpensDoordWhenCooking_ClearDisplayAndLightsOn()
+        {
+            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+
+            _output.ClearReceivedCalls();
+            _userInterface.OnDoorOpened(new object(), EventArgs.Empty);
+
+
+            _output.Received().OutputLine("Light is turned on");
+            _output.Received().OutputLine("Display cleared");
+        }
+
+        [Test]
+        public void UserInterface_CookingFinishes_ClearDisplayAndLightsOn()
+        {
+            _userInterface.OnPowerPressed(new object(), EventArgs.Empty);
+            _userInterface.OnTimePressed(new object(), EventArgs.Empty);
+            _userInterface.OnStartCancelPressed(new object(), EventArgs.Empty);
+
+            for (int i = 0; i < 60; i++)
+            {
+                _timer.TimerTick += Raise.EventWith(new object(), EventArgs.Empty);
+            }
+
+
+            _output.Received().OutputLine("Light is turned on");
             _output.Received().OutputLine("Display cleared");
         }
     }
